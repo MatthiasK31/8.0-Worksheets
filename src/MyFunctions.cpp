@@ -6,6 +6,7 @@
 //Make sure to add any other needed include files
 #include <iostream>
 #include <iomanip>
+#include <vector>
 #include <string>
 
 using namespace std;
@@ -41,4 +42,43 @@ bool checkValidNumInput(std::string tester)
 		return true;
 	}
 	return false;
+}
+
+bool checkValidWeekInput(std::string tester)
+{
+	//try-catch to validate input
+	try {
+		int num = std::stoi(tester); // error trap this with a try/catch block
+
+		
+		if (num < 0 || num > 4) {
+			return true;
+		}
+	}
+	catch (std::invalid_argument& e) {
+		//prompt user for valid input/continue loop
+		return true;
+	}
+	return false;
+}
+
+int favorite(std::vector<int> &numbers, int fav)
+{
+	int count = 0;
+	for (int i = 0; i < numbers.size(); i++) {
+		if (numbers.at(i) == fav)
+			count+= 1;
+	}
+
+	return count;
+}
+
+std::string isPalindrome(std::string word)
+{
+	std::string temp = "";
+
+	for (int j = word.length()-1; j >= 0; j--) {
+		temp += word.at(j);
+	}
+	return temp;
 }

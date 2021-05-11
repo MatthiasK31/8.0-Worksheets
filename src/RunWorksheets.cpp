@@ -43,41 +43,26 @@
 
 #include <iostream>
 #include "Worksheets.h"
-// Add all other needed header files including any you created for your functions cpp file. 
+#include "GetData.h"
+#include "MyFunctions.h"
+
 
 using namespace std;
 
 int main()
 {
-    //NO NEW CODE BELONGS IN MAIN
-    //What you used to put in main() goes in the functions in Worksheets.cpp. 
-    //Any functions you need to create for the worksheets should be in MyFunctions.cpp 
-    //and prototyped in MyFunction.h
-
     bool runAgain = false;
     string answer = "n";
-
-    //Change the string nameX of the worksheets to the actual name of the worksheet/Worksheet question number
-    //for example - for 3.0 worksheets they are 
-    //"Working with Logical operators", "Working with if", "If else", "More if else", "Switch"
-    //NOTE: you can also use these to do individual questions on a worksheet.
-    //as shown by name5
-    //Do not comment out the extra sting names. 
 
     string name1 = "Working with Logical Operators";
     string name2 = "Working with if Statements";
     string name3 = "Worksheet If - Else statements";
     string name4 = "Worksheet More work with if - else";
     string name5 = "Worksheet Functions Q2";
-
-
-    //Uncomment the needed loops
-    //the defualt is 5. up to 10 are supported
-    //Contact me if you want to add mor (You can do this yourself too)
     do {
-        worksheet1(name1);
+        //worksheet1(name1);
         cout << "Press y/Y to run again. Any other character to proceed: ";
-        getline(cin, answer);
+        cin >> answer;
         if (answer == "y" || answer == "Y") {
             runAgain = true;
         }
@@ -89,7 +74,7 @@ int main()
     do {
         worksheet2(name2);
         cout << "Press y/Y to run again. Any other character to proceed: ";
-        getline(cin, answer);
+        cin >> answer;
         if (answer == "y" || answer == "Y") {
             runAgain = true;
         }
@@ -101,7 +86,7 @@ int main()
     do {
         worksheet3(name3);
         cout << "Press y/Y to run again. Any other character to proceed: ";
-        getline(cin, answer);
+        cin >> answer;
         if (answer == "y" || answer == "Y") {
             runAgain = true;
         }
@@ -113,7 +98,7 @@ int main()
     do {
         worksheet4(name4);
         cout << "Press y/Y to run again. Any other character to proceed: ";
-        getline(cin, answer);
+        cin >> answer;
         if (answer == "y" || answer == "Y") {
             runAgain = true;
         }
@@ -125,7 +110,7 @@ int main()
     do {
         worksheet5(name5);
         cout << "Press y/Y to run again. Any other character to proceed: ";
-        getline(cin, answer);
+        cin >> answer;
         if (answer == "y" || answer == "Y") {
             runAgain = true;
         }
@@ -133,66 +118,4 @@ int main()
             runAgain = false;
         }
     } while (runAgain);
-    /*Uncomment as many as you need*/
-    /*
-        do {
-            worksheet6(name6);
-            cout << "Press y/Y to run again. Any other character to proceed: ";
-            getline(cin, answer);
-            if (answer == "y" || answer == "Y") {
-                runAgain = true;
-            }
-            else {
-                runAgain = false;
-            }
-        } while (runAgain);
-
-        do {
-            worksheet7(name7);
-            cout << "Press y/Y to run again. Any other character to proceed: ";
-            getline(cin, answer);
-            if (answer == "y" || answer == "Y") {
-                runAgain = true;
-            }
-            else {
-                runAgain = false;
-            }
-        } while (runAgain);
-
-        do {
-            worksheet8(name8);
-            cout << "Press y/Y to run again. Any other character to proceed: ";
-            getline(cin, answer);
-            if (answer == "y" || answer == "Y") {
-                runAgain = true;
-            }
-            else {
-                runAgain = false;
-            }
-        } while (runAgain);
-
-        do {
-            worksheet9(name9);
-            cout << "Press y/Y to run again. Any other character to proceed: ";
-            getline(cin, answer);
-            if (answer == "y" || answer == "Y") {
-                runAgain = true;
-            }
-            else {
-                runAgain = false;
-            }
-        } while (runAgain);
-
-        do {
-            worksheet10(name10);
-            cout << "Press y/Y to run again. Any other character to proceed: ";
-            getline(cin, answer);
-            if (answer == "y" || answer == "Y") {
-                runAgain = true;
-            }
-            else {
-                runAgain = false;
-            }
-        } while (runAgain);
-     */
 }
