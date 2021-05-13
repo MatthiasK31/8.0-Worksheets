@@ -7,6 +7,7 @@
 //SAMPLE - if you delete this also delete the code in MyFunctions.cpp
 void MySampleFunction(void);
 bool checkValidNumInput(std::string);
-bool checkValidWeekInput(std::string tester);
+bool checkValidWeekInput(std::string);
+bool checkValidDistance(std::string);
 int favorite(std::vector<int>&, int);
 std::string isPalindrome(std::string word);

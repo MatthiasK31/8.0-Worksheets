@@ -215,7 +215,47 @@ void worksheet2(string namedItem) {
 
 void worksheet3(string namedItem) {
     std::cout << endl << "worksheet: " << namedItem << endl << endl;
-    //Put all code for worksheet 3 here
+    
+    //1
+    //declare arrays
+    int dis[] = {50, 100, 200, 400, 800, 1000};
+    double secs[] = {7.24, 13,54, 28.03, 71.12, 158.67, 220.15};
+    string entered; int distance = 0;
+    bool yesOrNo;
+
+    //convert arrays to vectors
+    vector<int> distanceMeters(dis, dis + sizeof dis / sizeof dis[0]);
+    vector<double> timeSeconds(secs, secs + sizeof secs / sizeof secs[0]);
+
+    //ask for distance
+    cout << "Which distance would you like to check the time for? ";
+    cin >> entered;
+    //error trap
+    yesOrNo = checkValidDistance(entered);
+
+    if (yesOrNo == true) {
+        while (yesOrNo) {
+            cout << "\tEnter a valid number:\t";
+            cin.clear();
+            cin >> entered;
+            yesOrNo = checkValidDistance(entered);
+        }
+    }
+    //convert the entered value into an int
+    distance = stoi(entered);
+    
+    //go through the distance vector and once the value is found, print the distance and time, then break out of the loop
+    for (int i = 0; i < distanceMeters.size(); i++) {
+        if (distance == distanceMeters.at(i)) {
+            printf("%-15s %-15s\n", "Distance(m)", "Time(sec)");
+            printf("%-15d %-15.2f\n", distance, timeSeconds.at(i));
+            break;
+        }
+    }
+
+    //2
+
+
 }
 
 void worksheet4(string namedItem) {
