@@ -33,7 +33,7 @@ bool checkValidNumInput(std::string tester)
 		if (temp != num) {
 			return true;
 		}
-		if (num < 0) {
+		else if (num < 0) {
 			return true;
 		}
 	}
@@ -104,4 +104,80 @@ std::string isPalindrome(std::string word)
 		temp += word.at(j);
 	}
 	return temp;
+}
+
+void printStudents(vector<string> names, vector<string> addresses, vector<string> numbers) 
+{
+	//print student names
+	cout << "Student Names:" << endl;
+	for (int i = 0; i < names.size(); i++) {
+		if (i < names.size() - 1)
+			cout << names.at(i) << ", ";
+		else {
+			cout << names.at(i) << endl << endl;
+		}
+	}
+
+	//print student addresses
+	cout << "Student Addresses:" << endl;
+	for (int i = 0; i < addresses.size(); i++) {
+		if (i < addresses.size() - 1)
+			cout << addresses.at(i) << ", ";
+		else {
+			cout << addresses.at(i) << endl << endl;
+		}
+	}
+
+	//print student numbers
+	cout << "Student Phone #s:" << endl;
+	for (int i = 0; i < numbers.size(); i++) {
+		if (i < numbers.size() - 1)
+			cout << numbers.at(i) << ", ";
+		else {
+			cout << numbers.at(i) << endl << endl;
+		}
+	}
+}
+
+void BubbleSortDescend(std::vector<int>& num)
+{
+	int i, j, flag = 1;        // set flag to 1 to start first pass
+	int temp;                  // holding variable
+	int numLength = num.size();
+	for (i = 1; (i <= numLength) && flag; i++)
+	{
+		flag = 0;
+		for (j = 0; j < (numLength - 1); j++)
+		{
+			if (num[j + 1] > num[j])      // ascending order simply changes to &lt;
+			{
+				temp = num[j];            // swap elements
+				num[j] = num[j + 1];
+				num[j + 1] = temp;
+				flag = 1;                 // indicates that a swap occurred.
+			}
+		}
+	}
+	return;          //arrays are passed to functions by address; nothing is returned
+}
+void BubbleSortAscend(std::vector<int>& num)
+{
+	int i, j, flag = 1;        // set flag to 1 to start first pass
+	int temp;                  // holding variable
+	int numLength = num.size();
+	for (i = 1; (i <= numLength) && flag; i++)
+	{
+		flag = 0;
+		for (j = 0; j < (numLength - 1); j++)
+		{
+			if (num[j + 1] < num[j])      // ascending order simply changes to &lt;
+			{
+				temp = num[j];            // swap elements
+				num[j] = num[j + 1];
+				num[j + 1] = temp;
+				flag = 1;                 // indicates that a swap occurred.
+			}
+		}
+	}
+	return;          //arrays are passed to functions by address; nothing is returned
 }

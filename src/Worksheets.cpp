@@ -1,3 +1,15 @@
+/*
+Matthias Kim
+Lab 8.0
+21 May 2021
+
+WKST 1 Extra: 
+WKST 2 Extra:
+WKST 3 Extra:
+WKST 4 Extra:
+WKST 5 Extra: prints the number of times that the number appeared in the array of randomly generated numbers
+*/
+
 //headers
 #include "Worksheets.h"
 #include "GetData.h"
@@ -9,6 +21,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -90,8 +103,8 @@ void worksheet1(string namedItem) {
                 yesOrNo = checkValidNumInput(to_string(age));
             }
         }
-
-        pAges.push_back(age);
+        int temp = (int)age;
+        pAges.push_back(temp);
 
         if (age > 15)
             moreThan++;
@@ -218,14 +231,10 @@ void worksheet3(string namedItem) {
     
     //1
     //declare arrays
-    int dis[] = {50, 100, 200, 400, 800, 1000};
-    double secs[] = {7.24, 13,54, 28.03, 71.12, 158.67, 220.15};
+    vector<int> distanceMeters = { 50, 100, 200, 400, 800, 1000 };
+    vector<double> timeSeconds = { 7.24, 13,54, 28.03, 71.12, 158.67, 220.15 };
     string entered; int distance = 0;
     bool yesOrNo;
-
-    //convert arrays to vectors
-    vector<int> distanceMeters(dis, dis + sizeof dis / sizeof dis[0]);
-    vector<double> timeSeconds(secs, secs + sizeof secs / sizeof secs[0]);
 
     //ask for distance
     cout << "Which distance would you like to check the time for? ";
@@ -248,22 +257,208 @@ void worksheet3(string namedItem) {
     for (int i = 0; i < distanceMeters.size(); i++) {
         if (distance == distanceMeters.at(i)) {
             printf("%-15s %-15s\n", "Distance(m)", "Time(sec)");
-            printf("%-15d %-15.2f\n", distance, timeSeconds.at(i));
+            printf("%-15d %-15.2f\n\n", distance, timeSeconds.at(i));
             break;
         }
     }
 
     //2
+    string name, address, number;
+    vector<string> studentNames = { "Shaiiko Lebleu", "John Wick", "Tony Stark", "Steve Rogers", "Peter Parker" };
+    vector<string> studentAddys;
+    vector<string> studentNumbers;
+    
+    //ask 5 diff people their name/address/number
+    cin.ignore(INT_MAX, '\n');
+    for (int i = 0; i < 5; i++) {
+        cout << "Student #" << i+1 << ":" << endl;
 
+        cout << "What is your address?  ";
+        getline(cin, address);
+        cout << "What is your phone number?  ";
+        getline(cin, number);
+
+        //push back variables
+        studentAddys.push_back(address);
+        studentNumbers.push_back(number);
+        cout << endl;
+    }
+    printStudents(studentNames, studentAddys, studentNumbers);
 
 }
 
 void worksheet4(string namedItem) {
     std::cout << endl << "worksheet: " << namedItem << endl << endl;
-    //Put all code for worksheet 4 here
+    //1
+
+    //variables
+    double ticket;
+    bool yesOrNo, aMatch = false;
+    vector<int> winningNumbers = { 307, 521, 416, 154, 243, 89 };
+
+    //ask for a ticket value and error trap input
+    cout << "Enter your ticket number!!  ";
+    cin >> ticket;
+    yesOrNo = checkValidNumInput(to_string(ticket));
+
+    if (yesOrNo == true) {
+        while (yesOrNo) {
+            cout << "\tEnter a valid number:\t";
+            cin.clear();
+            cin >> ticket;
+            yesOrNo = checkValidNumInput(to_string(ticket));
+        }
+    }
+
+    //search through the array and if there is a match, print a corresponding statement
+    for (int i = 0; i < winningNumbers.size(); i++) {
+        if (ticket == winningNumbers.at(i)) {
+            aMatch = true;
+        }
+    }
+    if (aMatch == true) {
+        cout << "Congrats! Your ticket #" << ticket << " is a winning number!" << endl;
+    }
+    else {
+        cout << "Sorry, your ticket is not a winning number.\n" << endl;
+    }
+
+
+    //2
+    double key = 0;
+    aMatch = false;
+    vector<int> numbers = { 5, 6, 10, 14, 15, 16, 18, 22 };
+
+    cout << "Enter a number: ";
+    cin >> key;
+    yesOrNo = checkValidNumInput(to_string(key));
+
+    if (yesOrNo == true) {
+        while (yesOrNo) {
+            cout << "\tEnter a valid number:\t";
+            cin.clear();
+            cin >> key;
+            yesOrNo = checkValidNumInput(to_string(key));
+        }
+    }
+    //search through the array and if there is a match, print a corresponding statement
+    if (binary_search(numbers.begin(), numbers.end(), key)) {
+        cout << "The key value " << key << " was found in the array.\n" << endl;
+    }
+    else {
+        cout << "The entered key value was not found in the array.\n" << endl;
+    }
 }
 
 void worksheet5(string namedItem) {
     std::cout << endl << "worksheet: " << namedItem << endl << endl;
-    //Put all code for worksheet 5 here
+    //variables
+    int generated, key, timesFound = 0, through = 0;
+    bool yesOrNo;
+    vector<int> rNumbers;
+
+    cout << "There will be 50 random numbers generated between 1 and 50. " << endl;
+    srand(time(NULL));
+    for (int i = 0; i < 50; i++) {
+        //generate the random number and push back to the vector with all the numbers
+        rNumbers.push_back(rand() % 50 + 1);
+    }
+
+    //print 5 rows o
+    //print 5 rows of 10 numbers each
+    for (int i = 0;  i < 10; i++) {
+        cout << rNumbers.at(i) << "\t";
+    }
+    cout << endl;
+    for (int i = 10; i < 20; i++) {
+        cout << rNumbers.at(i) << "\t";
+    }
+    cout << endl;
+    for (int i = 20; i < 30; i++) {
+        cout << rNumbers.at(i) << "\t";
+    }
+    cout << endl;
+    for (int i = 30; i < 40; i++) {
+        cout << rNumbers.at(i) << "\t";
+    }
+    cout << endl;
+    for (int i = 40; i < 50; i++) {
+        cout << rNumbers.at(i) << "\t";
+    }
+    cout << endl;
+
+
+
+
+    cout << "Enter a number: ";
+    cin >> key;
+    yesOrNo = checkValidNumInput(to_string(key));
+
+    if (yesOrNo == true) {
+        while (yesOrNo) {
+            cout << "\tEnter a valid number:\t";
+            cin.clear();
+            cin >> key;
+            yesOrNo = checkValidNumInput(to_string(key));
+        }
+    }
+
+    //extra: prints the number of times that the number appeared in the array of randomly generated numbers
+    while (through < rNumbers.size()) {
+        if (rNumbers.at(through) == key)
+            ++timesFound;
+
+        through++;
+    }
+    cout << "Your key number " << key << " was found " << timesFound << " times in the array." << endl << endl;
+
+    cout << "Array Sorted in Descending Order by the Bubble Sort" << endl;
+    BubbleSortDescend(rNumbers);
+    for (int i = 0; i < 10; i++) {
+        cout << rNumbers.at(i) << "\t";
+    }
+    cout << endl;
+    for (int i = 10; i < 20; i++) {
+        cout << rNumbers.at(i) << "\t";
+    }
+    cout << endl;
+    for (int i = 20; i < 30; i++) {
+        cout << rNumbers.at(i) << "\t";
+    }
+    cout << endl;
+    for (int i = 30; i < 40; i++) {
+        cout << rNumbers.at(i) << "\t";
+    }
+    cout << endl;
+    for (int i = 40; i < 50; i++) {
+        cout << rNumbers.at(i) << "\t";
+    }
+    cout << endl;
+
+    cout << "Array Sorted in Ascending Order by the Bubble Sort" << endl;
+    BubbleSortAscend(rNumbers);
+    for (int i = 0; i < 10; i++) {
+        cout << rNumbers.at(i) << "\t";
+    }
+    cout << endl;
+    for (int i = 10; i < 20; i++) {
+        cout << rNumbers.at(i) << "\t";
+    }
+    cout << endl;
+    for (int i = 20; i < 30; i++) {
+        cout << rNumbers.at(i) << "\t";
+    }
+    cout << endl;
+    for (int i = 30; i < 40; i++) {
+        cout << rNumbers.at(i) << "\t";
+    }
+    cout << endl;
+    for (int i = 40; i < 50; i++) {
+        cout << rNumbers.at(i) << "\t";
+    }
+    cout << endl;
+
+
+
+
 }

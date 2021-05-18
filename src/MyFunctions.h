@@ -10,4 +10,8 @@ bool checkValidNumInput(std::string);
 bool checkValidWeekInput(std::string);
 bool checkValidDistance(std::string);
 int favorite(std::vector<int>&, int);
-std::string isPalindrome(std::string word);
+std::string isPalindrome(std::string);
+void printStudents(std::vector<std::string>, std::vector<std::string>, std::vector<std::string>);
+void BubbleSortDescend(std::vector<int>&);
+void BubbleSortAscend(std::vector<int>&);
+
