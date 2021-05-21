@@ -31,7 +31,6 @@ void worksheet1(string namedItem) {
     //1
     //was a response to written code
 
-
     //2
     //create variables
     vector<double> finalGrade;
@@ -86,25 +85,16 @@ void worksheet1(string namedItem) {
 
     //4
     vector<int> pAges;
-    double age;
+    int age;
     int moreThan = 0;
     bool yesOrNo = false;
 
     for (int i = 0; i < 5; i++) {
-        cout << "Enter age #" << i + 1 << ":  ";
-        cin >> age;
-        yesOrNo = checkValidNumInput(to_string(age));
-
-        if (yesOrNo == true) {
-            while (yesOrNo) {
-                cout << "\tEnter a valid number:\t";
-                cin.clear();
-                cin >> age;
-                yesOrNo = checkValidNumInput(to_string(age));
-            }
-        }
-        int temp = (int)age;
-        pAges.push_back(temp);
+        do {
+            cout << "Enter age #" << i + 1 << ":  ";
+        } while (!(getValidInt(age)) || age < 0);
+        
+        pAges.push_back(age);
 
         if (age > 15)
             moreThan++;
@@ -119,7 +109,7 @@ void worksheet1(string namedItem) {
     string daysOfTheWeek[] = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     vector<double> dailySales;
     double salesForDay = 0;
-    int response; string advance = ""; string temp;
+    int response; string advance = ""; string temp = "";
 
     for (int i = 0; i < size(daysOfTheWeek); i++) {
         cout << "Enter the total sales for " << daysOfTheWeek[i] <<": ";
@@ -129,20 +119,11 @@ void worksheet1(string namedItem) {
     }
 
     do {
-        cout << "Choose a day of the week to view its total sales:  ";
-        cin >> response;
-        yesOrNo = checkValidWeekInput(to_string(response));
+        do {
+            cout << "Choose a day of the week to view its total sales:  ";
+        } while (!getValidInt(response) || response < 0 || response > 4);
 
-        if (yesOrNo == true) {
-            while (yesOrNo) {
-                cout << "\tEnter a valid number:\t";
-                cin.clear();
-                cin >> response;
-                yesOrNo = checkValidWeekInput(to_string(response));
-            }
-        }
-
-        cout << "There was a total of $" << dailySales.at(response) << " on " << daysOfTheWeek[response] << "!" << endl;
+        cout << "There was a total of $" << dailySales.at(response - (int)1) << " on " << daysOfTheWeek[response -  (int)1] << "!" << endl;
 
 
         cout << "Would you like to continue? ";

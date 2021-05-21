@@ -59,7 +59,7 @@ int main()
     string name3 = "Worksheet If - Else statements";
     string name4 = "Worksheet More work with if - else";
     string name5 = "Worksheet Functions Q2";
-    /*
+    
     do {
         worksheet1(name1);
         cout << "Press y/Y to run again. Any other character to proceed: ";
@@ -107,7 +107,7 @@ int main()
             runAgain = false;
         }
     } while (runAgain);
-    */
+    
     do {
         worksheet5(name5);
         cout << "Press y/Y to run again. Any other character to proceed: ";
