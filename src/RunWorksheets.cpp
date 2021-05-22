@@ -71,7 +71,7 @@ int main()
     string name3 = "Worksheet 3";
     string name4 = "Worksheet 4";
     string name5 = "Worksheet 5";
-    /*
+    
     do {
         worksheet1(name1);
         cout << "Press y/Y to run again. Any other character to proceed: ";
@@ -108,7 +108,7 @@ int main()
         }
     } while (runAgain);
     
-    */
+    
     do {
         worksheet4(name4);
         cout << "Press y/Y to run again. Any other character to proceed: ";

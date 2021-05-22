@@ -33,10 +33,10 @@ void worksheet1(string namedItem) {
 
     //2
     //create variables
-    vector<double> finalGrade;
     double total = 0, average = 0;
 
     //add values to the vector variable
+    vector<double> finalGrade;
     finalGrade.push_back(85.8);
     finalGrade.push_back(93.7);
     finalGrade.push_back(76);
@@ -117,7 +117,7 @@ void worksheet1(string namedItem) {
     string daysOfTheWeek[] = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     vector<double> dailySales;
     double salesForDay = 0;
-    int response; string advance = ""; string temp = "";
+    int response; string answer = ""; string temp = "";
 
     for (int i = 0; i < size(daysOfTheWeek); i++) {
         cout << "Enter the total sales for " << daysOfTheWeek[i] <<": ";
@@ -126,24 +126,23 @@ void worksheet1(string namedItem) {
         cout << "There was a total of $" << salesForDay << " on " << daysOfTheWeek[i] << "!" << endl;
     }
 
-    do {
+    while (true) {
         cin.ignore(INT_MAX, '\n');
         cout << "Choose a day of the week to view its total sales:  ";
         while (!getValidInt(response) || response < 0 || response > 5) {
             cout << "\tEnter a valid number:\t";
         }
 
-        cout << "There was a total of $" << dailySales.at(response - 1) << " on " << daysOfTheWeek[response - 1] << "!" << endl;
+        int temp = response - 1;
+        cout << "There was a total of $" << dailySales.at(temp) << " on " << daysOfTheWeek[temp] << "!" << endl;
 
 
         cout << "Would you like to continue? ";
-        cin >> advance;
-        for (int i = 0; i < advance.length(); i++) {
-            temp += tolower(advance.at(i));
-        }
-        advance = temp;
-
-    } while (advance.at(0) == 'y' || advance == "yes" || advance != "no");
+        cin >> answer;
+        transform(answer.begin(), answer.end(), answer.begin(), ::tolower);
+        if (answer == "no")
+            break;
+    } 
 
 
 }
@@ -157,9 +156,11 @@ void worksheet2(string namedItem) {
     bool yesOrNo;
 
     for (int i = 0; i < 10; i++) {
-        do {
-            cout << "Enter number #" << i+1 << ": ";
-        } while (!getValidInt(num));
+        cout << "Enter number #" << i + 1 << ": ";
+        while (!getValidInt(num)) {
+            cin.ignore(INT_MAX, '\n');
+            cout << "\tEnter a valid number:\t";
+        }
         
         numbers.push_back(num);
     }
@@ -167,6 +168,7 @@ void worksheet2(string namedItem) {
     //ask user to enter his/her favorite number
     cout << "Additionally, please enter your favorite number: ";
     while (!getValidInt(fav)) {
+        cin.ignore(INT_MAX, '\n');
         cout << "\tEnter a valid number:\t";
     }
 
@@ -209,6 +211,7 @@ void worksheet3(string namedItem) {
     //ask for distance
     cout << "Which distance would you like to check the time for? ";
     while (!getValidInt(distance)) {
+        cin.ignore(INT_MAX, '\n');
         cout << "\tEnter a valid number:\t";
     }
     
@@ -252,6 +255,7 @@ void worksheet3(string namedItem) {
     while (exitOrNo == false) {
         cout << "Would you like to see the information of a certain person? Select the corresponding number:\n1. Shaiiko Lebleu\n2. John Wick\n3.Tony Stark\n4.Steve Rogers\n5.Peter Parker\nEnter the number 42 to exit.\n";
         while (!getValidInt(chosen) || chosen < 0) {
+            cin.ignore(INT_MAX, '\n');
             cout << "\tEnter a valid number:\t";
         }
         cout << studentNames.at(chosen) << endl << studentAddys.at(chosen) << endl << studentNumbers.at(chosen) << endl;
@@ -274,8 +278,8 @@ void worksheet4(string namedItem) {
     //ask for a ticket value and error trap input
     cout << "Enter your ticket number!!  ";
     while (!getValidInt(ticket)) {
-        cout << "\tEnter a valid number:\t";
         cin.ignore(INT_MAX, '\n');
+        cout << "\tEnter a valid number:\t";
     }
 
     //search through the array and if there is a match, print a corresponding statement
