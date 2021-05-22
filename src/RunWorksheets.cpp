@@ -66,12 +66,12 @@ int main()
     bool runAgain = false;
     string answer = "n";
 
-    string name1 = "Working with Logical Operators";
-    string name2 = "Working with if Statements";
-    string name3 = "Worksheet If - Else statements";
-    string name4 = "Worksheet More work with if - else";
-    string name5 = "Worksheet Functions Q2";
-    
+    string name1 = "Worksheet 1";
+    string name2 = "Worksheet 2";
+    string name3 = "Worksheet 3";
+    string name4 = "Worksheet 4";
+    string name5 = "Worksheet 5";
+    /*
     do {
         worksheet1(name1);
         cout << "Press y/Y to run again. Any other character to proceed: ";
@@ -108,7 +108,7 @@ int main()
         }
     } while (runAgain);
     
-    
+    */
     do {
         worksheet4(name4);
         cout << "Press y/Y to run again. Any other character to proceed: ";

@@ -147,6 +147,38 @@ void printStudents(vector<string> names, vector<string> addresses, vector<string
 		}
 	}
 }
+void binarySearch(vector<int> array, int lowerbound, int upperbound, int key)
+{
+	int position;
+	int comparisonCount = 1;  // counting number of comparisons (optional)
+	// To start, find the subscript of the middle position.
+	position = (lowerbound + upperbound) / 2;
+	while ((array[position] != key) && (lowerbound <= upperbound))
+	{
+		comparisonCount++;
+		if (array[position] > key)  // If thenumber is &gt; key,
+		{  // decrease position by one.
+			upperbound = position - 1;
+		}
+		else 
+		{ // Else, increase position by one.
+			   lowerbound = position + 1;
+		}
+		position = (lowerbound + upperbound) / 2;
+	}
+	if (lowerbound <= upperbound)
+	{
+		cout << "Number: " << key << endl;
+		cout << "The number was found in array subscript " << position << endl;
+		cout << "The binary search found the number after " << comparisonCount
+			<< " comparisons.\n";
+
+	}
+	else
+		cout << "Sorry, the number is not in this array.The binary search made " << comparisonCount << " comparisons.";
+	return;
+}
+
 
 void BubbleSortDescend(std::vector<int>& num)
 {
@@ -158,7 +190,7 @@ void BubbleSortDescend(std::vector<int>& num)
 		flag = 0;
 		for (j = 0; j < (numLength - 1); j++)
 		{
-			if (num[j + 1] > num[j])      // ascending order simply changes to &lt;
+			if (num[j + 1] > num[j])      // ascending order simply changes to <
 			{
 				temp = num[j];            // swap elements
 				num[j] = num[j + 1];
@@ -179,7 +211,7 @@ void BubbleSortAscend(std::vector<int>& num)
 		flag = 0;
 		for (j = 0; j < (numLength - 1); j++)
 		{
-			if (num[j + 1] < num[j])      // ascending order simply changes to &lt;
+			if (num[j + 1] < num[j])      // ascending order simply changes to <
 			{
 				temp = num[j];            // swap elements
 				num[j] = num[j + 1];

@@ -6,7 +6,7 @@ Lab 8.0
 WKST 1 Extra: allow user to choose how many people ages should be entered for
 WKST 2 Extra: added some extra words to have the program check for palindromes
 WKST 3 Extra: allow user to see info for a certain person
-WKST 4 Extra: allow user to keep trying to get ticket num
+WKST 4 Extra: allow user to make 5 guesses for numbers in the array
 WKST 5 Extra: prints the number of times that the number appeared in the array of randomly generated numbers
 */
 
@@ -267,32 +267,28 @@ void worksheet4(string namedItem) {
 
     //variables
     int ticket;
-    string response;
-    bool yesOrNo, aMatch = false;
+    string response = "";
+    bool yesOrNo, yep = true, aMatch = false;
     vector<int> winningNumbers = { 307, 521, 416, 154, 243, 89 };
 
     //ask for a ticket value and error trap input
-    //extra: allow user to keep trying to get ticket num
-    while (response.at(0) == 'y') {
-        cout << "Enter your ticket number!!  ";
-        while (!getValidInt(ticket)) {
-            cout << "\tEnter a valid number:\t";
-        }
+    cout << "Enter your ticket number!!  ";
+    while (!getValidInt(ticket)) {
+        cout << "\tEnter a valid number:\t";
+        cin.ignore(INT_MAX, '\n');
+    }
 
-        //search through the array and if there is a match, print a corresponding statement
-        for (int i = 0; i < winningNumbers.size(); i++) {
-            if (ticket == winningNumbers.at(i)) {
-                aMatch = true;
-            }
+    //search through the array and if there is a match, print a corresponding statement
+    for (int i = 0; i < winningNumbers.size(); i++) {
+        if (ticket == winningNumbers.at(i)) {
+            aMatch = true;
         }
-        if (aMatch == true) {
-            cout << "Congrats! Your ticket #" << ticket << " is a winning number!" << endl;
-        }
-        else {
-            cout << "Sorry, your ticket is not a winning number.\n" << endl;
-        }
-        cout << "Would you like to try again? (y/n)";
-        cin >> response;
+    }
+    if (aMatch == true) {
+        cout << "Congrats! Your ticket #" << ticket << " is a winning number!" << endl;
+    }
+    else {
+        cout << "Sorry, your ticket is not a winning number.\n" << endl;
     }
 
 
@@ -300,19 +296,24 @@ void worksheet4(string namedItem) {
     int key = 0;
     aMatch = false;
     vector<int> numbers = { 5, 6, 10, 14, 15, 16, 18, 22 };
+    vector<int> guesses;
 
-    cout << "Enter a number: ";
-    while (!getValidInt(key)) {
-        cout << "\tEnter a valid number:\t";
-    }
+    //extra: allow user to make 5 guesses for numbers in the array
+    for (int i = 0; i < 5; i++) {
+        cout << "Enter a number: ";
+        while (!getValidInt(key)) {
+            cin.ignore(INT_MAX, '\n');
+            cout << "\tEnter a valid number:\t";
+        }
 
-    //search through the array and if there is a match, print a corresponding statement
-    if (binary_search(numbers.begin(), numbers.end(), key)) {
-        cout << "The key value " << key << " was found in the array.\n" << endl;
+        guesses.push_back(key);
     }
-    else {
-        cout << "The entered key value was not found in the array.\n" << endl;
-    }
+    cout << endl;
+    //print results
+    for (int i = 0; i < guesses.size(); i++) {
+        binarySearch(numbers, 0, numbers.size(), guesses.at(i));
+        cout << endl;
+    }    
 }
 
 void worksheet5(string namedItem) {
@@ -352,9 +353,7 @@ void worksheet5(string namedItem) {
     }
     cout << endl;
 
-
-
-
+    //ask for number
     cout << "Enter a number: ";
     cin.ignore(INT_MAX, '\n');
     while (!getValidInt(key)) {

@@ -12,6 +12,7 @@ bool checkValidDistance(std::string);
 int favorite(std::vector<int>&, int);
 std::string isPalindrome(std::string);
 void printStudents(std::vector<std::string>, std::vector<std::string>, std::vector<std::string>);
+void binarySearch(std::vector<int>, int, int, int);
 void BubbleSortDescend(std::vector<int>&);
 void BubbleSortAscend(std::vector<int>&);
 
