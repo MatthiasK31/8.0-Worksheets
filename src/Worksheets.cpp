@@ -3,10 +3,10 @@ Matthias Kim
 Lab 8.0
 21 May 2021
 
-WKST 1 Extra: 
-WKST 2 Extra:
-WKST 3 Extra:
-WKST 4 Extra:
+WKST 1 Extra: allow user to choose how many people ages should be entered for
+WKST 2 Extra: added some extra words to have the program check for palindromes
+WKST 3 Extra: allow user to see info for a certain person
+WKST 4 Extra: allow user to keep trying to get ticket num
 WKST 5 Extra: prints the number of times that the number appeared in the array of randomly generated numbers
 */
 
@@ -53,8 +53,6 @@ void worksheet1(string namedItem) {
     average = total / finalGrade.size();
     printf("%-20.1f\n\n", average);
 
-
-
     //3
     int iRandom;
     vector<int> rNumbers; vector<int> rEven;
@@ -85,11 +83,17 @@ void worksheet1(string namedItem) {
 
     //4
     vector<int> pAges;
-    int age;
-    int moreThan = 0;
+    int age, nPpl = 0;
+    int moreThan = 0; int lessThan = 0;
     bool yesOrNo = false;
 
-    for (int i = 0; i < 5; i++) {
+    //extra: allow user to choose how many people ages should be entered for
+    cout << "How many people would you like to enter ages for? ";
+    while (!getValidInt(nPpl)) {
+        cout << "\tEnter a valid number:\t";
+    }
+
+    for (int i = 0; i < nPpl; i++) {
         do {
             cout << "Enter age #" << i + 1 << ":  ";
         } while (!(getValidInt(age)) || age < 0);
@@ -98,11 +102,15 @@ void worksheet1(string namedItem) {
 
         if (age > 15)
             moreThan++;
+        else if (age < 15)
+            lessThan++;
 
         yesOrNo = false;
     }
 
     cout << "There are " << moreThan << " people who are older than 15.\n" << endl;
+
+
 
 
     //5
@@ -119,11 +127,13 @@ void worksheet1(string namedItem) {
     }
 
     do {
-        do {
-            cout << "Choose a day of the week to view its total sales:  ";
-        } while (!getValidInt(response) || response < 0 || response > 4);
+        cin.ignore(INT_MAX, '\n');
+        cout << "Choose a day of the week to view its total sales:  ";
+        while (!getValidInt(response) || response < 0 || response > 5) {
+            cout << "\tEnter a valid number:\t";
+        }
 
-        cout << "There was a total of $" << dailySales.at(response - (int)1) << " on " << daysOfTheWeek[response -  (int)1] << "!" << endl;
+        cout << "There was a total of $" << dailySales.at(response - 1) << " on " << daysOfTheWeek[response - 1] << "!" << endl;
 
 
         cout << "Would you like to continue? ";
@@ -133,7 +143,7 @@ void worksheet1(string namedItem) {
         }
         advance = temp;
 
-    } while (advance != "no");
+    } while (advance.at(0) == 'y' || advance == "yes" || advance != "no");
 
 
 }
@@ -147,34 +157,17 @@ void worksheet2(string namedItem) {
     bool yesOrNo;
 
     for (int i = 0; i < 10; i++) {
-        cout << "Enter a number: ";
-        cin >> num;
-        //error trap invalid inputs
-        yesOrNo = checkValidNumInput(to_string(num));
-
-        if (yesOrNo == true) {
-            while (yesOrNo) {
-                cout << "\tEnter a valid number:\t";
-                cin.clear();
-                cin >> num;
-                yesOrNo = checkValidNumInput(to_string(num));
-            }
-        }
+        do {
+            cout << "Enter number #" << i+1 << ": ";
+        } while (!getValidInt(num));
+        
         numbers.push_back(num);
     }
 
     //ask user to enter his/her favorite number
     cout << "Additionally, please enter your favorite number: ";
-    cin >> fav;
-    yesOrNo = checkValidWeekInput(to_string(fav));
-
-    if (yesOrNo == true) {
-        while (yesOrNo) {
-            cout << "\tEnter a valid number:\t";
-            cin.clear();
-            cin >> fav;
-            yesOrNo = checkValidWeekInput(to_string(fav));
-        }
+    while (!getValidInt(fav)) {
+        cout << "\tEnter a valid number:\t";
     }
 
     //call function, get the returned value, then print out a final message
@@ -183,12 +176,8 @@ void worksheet2(string namedItem) {
 
 
     //2
-    vector<string> words;
-    words.push_back("radar");
-    words.push_back("warts");
-    words.push_back("evil");
-    words.push_back("racecar");
-    words.push_back("toot");
+    //added a few extra words to the vector
+    vector<string> words = { "radar", "warts", "evil", "racecar", "toot", "cola", "civic" };
     string compare, isAPalindrome;
 
     printf("%-15s %-25s %-20s\n", "Word", "Reversed", "Palindrome?");
@@ -214,25 +203,14 @@ void worksheet3(string namedItem) {
     //declare arrays
     vector<int> distanceMeters = { 50, 100, 200, 400, 800, 1000 };
     vector<double> timeSeconds = { 7.24, 13,54, 28.03, 71.12, 158.67, 220.15 };
-    string entered; int distance = 0;
+    int distance = 0;
     bool yesOrNo;
 
     //ask for distance
     cout << "Which distance would you like to check the time for? ";
-    cin >> entered;
-    //error trap
-    yesOrNo = checkValidDistance(entered);
-
-    if (yesOrNo == true) {
-        while (yesOrNo) {
-            cout << "\tEnter a valid number:\t";
-            cin.clear();
-            cin >> entered;
-            yesOrNo = checkValidDistance(entered);
-        }
+    while (!getValidInt(distance)) {
+        cout << "\tEnter a valid number:\t";
     }
-    //convert the entered value into an int
-    distance = stoi(entered);
     
     //go through the distance vector and once the value is found, print the distance and time, then break out of the loop
     for (int i = 0; i < distanceMeters.size(); i++) {
@@ -266,6 +244,21 @@ void worksheet3(string namedItem) {
     }
     printStudents(studentNames, studentAddys, studentNumbers);
 
+    cout << studentNames.at(2) << endl << studentAddys.at(2) << endl << studentNumbers.at(2) << endl;
+
+    //extra: allow user to see info for a certain person
+    bool exitOrNo = false;
+    int chosen;
+    while (exitOrNo == false) {
+        cout << "Would you like to see the information of a certain person? Select the corresponding number:\n1. Shaiiko Lebleu\n2. John Wick\n3.Tony Stark\n4.Steve Rogers\n5.Peter Parker\nEnter the number 42 to exit.\n";
+        while (!getValidInt(chosen) || chosen < 0) {
+            cout << "\tEnter a valid number:\t";
+        }
+        cout << studentNames.at(chosen) << endl << studentAddys.at(chosen) << endl << studentNumbers.at(chosen) << endl;
+        if (chosen == 42)
+            break;
+    }
+
 }
 
 void worksheet4(string namedItem) {
@@ -273,55 +266,46 @@ void worksheet4(string namedItem) {
     //1
 
     //variables
-    double ticket;
+    int ticket;
+    string response;
     bool yesOrNo, aMatch = false;
     vector<int> winningNumbers = { 307, 521, 416, 154, 243, 89 };
 
     //ask for a ticket value and error trap input
-    cout << "Enter your ticket number!!  ";
-    cin >> ticket;
-    yesOrNo = checkValidNumInput(to_string(ticket));
-
-    if (yesOrNo == true) {
-        while (yesOrNo) {
+    //extra: allow user to keep trying to get ticket num
+    while (response.at(0) == 'y') {
+        cout << "Enter your ticket number!!  ";
+        while (!getValidInt(ticket)) {
             cout << "\tEnter a valid number:\t";
-            cin.clear();
-            cin >> ticket;
-            yesOrNo = checkValidNumInput(to_string(ticket));
         }
-    }
 
-    //search through the array and if there is a match, print a corresponding statement
-    for (int i = 0; i < winningNumbers.size(); i++) {
-        if (ticket == winningNumbers.at(i)) {
-            aMatch = true;
+        //search through the array and if there is a match, print a corresponding statement
+        for (int i = 0; i < winningNumbers.size(); i++) {
+            if (ticket == winningNumbers.at(i)) {
+                aMatch = true;
+            }
         }
-    }
-    if (aMatch == true) {
-        cout << "Congrats! Your ticket #" << ticket << " is a winning number!" << endl;
-    }
-    else {
-        cout << "Sorry, your ticket is not a winning number.\n" << endl;
+        if (aMatch == true) {
+            cout << "Congrats! Your ticket #" << ticket << " is a winning number!" << endl;
+        }
+        else {
+            cout << "Sorry, your ticket is not a winning number.\n" << endl;
+        }
+        cout << "Would you like to try again? (y/n)";
+        cin >> response;
     }
 
 
     //2
-    double key = 0;
+    int key = 0;
     aMatch = false;
     vector<int> numbers = { 5, 6, 10, 14, 15, 16, 18, 22 };
 
     cout << "Enter a number: ";
-    cin >> key;
-    yesOrNo = checkValidNumInput(to_string(key));
-
-    if (yesOrNo == true) {
-        while (yesOrNo) {
-            cout << "\tEnter a valid number:\t";
-            cin.clear();
-            cin >> key;
-            yesOrNo = checkValidNumInput(to_string(key));
-        }
+    while (!getValidInt(key)) {
+        cout << "\tEnter a valid number:\t";
     }
+
     //search through the array and if there is a match, print a corresponding statement
     if (binary_search(numbers.begin(), numbers.end(), key)) {
         cout << "The key value " << key << " was found in the array.\n" << endl;
@@ -372,16 +356,9 @@ void worksheet5(string namedItem) {
 
 
     cout << "Enter a number: ";
-    cin >> key;
-    yesOrNo = checkValidNumInput(to_string(key));
-
-    if (yesOrNo == true) {
-        while (yesOrNo) {
-            cout << "\tEnter a valid number:\t";
-            cin.clear();
-            cin >> key;
-            yesOrNo = checkValidNumInput(to_string(key));
-        }
+    cin.ignore(INT_MAX, '\n');
+    while (!getValidInt(key)) {
+        cout << "\tEnter a valid number:\t";
     }
 
     //extra: prints the number of times that the number appeared in the array of randomly generated numbers

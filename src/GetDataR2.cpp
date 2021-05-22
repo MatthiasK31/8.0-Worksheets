@@ -1,18 +1,13 @@
 /*
-Darryl DiGiovanna
-10/27/19: Original file
-NOTE: due to convesions in stof - the number will be close but not exact
-for example 5.2 will covert to 5.199999 Something to correct for in future revisions
-12/2/19: rev 1
-	All stoi errors trapped.  Any error returns false (try-catch intoduction)
-2/20/2021
-	stoi/stod/stof will convert anything what starts with a number.
-	that's not quite what we want to add some additional restrictions
-	1) only 0 - 9 and '-' are acceptable charaters
-	2) make sure '-' is only in position 1
-4/17/2021
-	 changed stof() to stod() in GetValidDouble() - oops Even teachers make mistakes!
-	 NOTE: due to convesions in stof - the number will be close mut not exact
+Matthias Kim
+Lab 8.0
+21 May 2021
+
+WKST 1 Extra: allow user to choose how many people ages should be entered for
+WKST 2 Extra: added some extra words to have the program check for palindromes
+WKST 3 Extra: allow user to see info for a certain person
+WKST 4 Extra: allow user to keep trying to get ticket num
+WKST 5 Extra: prints the number of times that the number appeared in the array of randomly generated numbers
 */
 
 

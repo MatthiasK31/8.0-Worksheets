@@ -1,5 +1,14 @@
-//Add any function code goes here
-//if you didn't create any functions used exclusively for this worksheet you won't use this file.
+/*
+Matthias Kim
+Lab 8.0
+21 May 2021
+
+WKST 1 Extra: allow user to choose how many people ages should be entered for
+WKST 2 Extra: added some extra words to have the program check for palindromes
+WKST 3 Extra: allow user to see info for a certain person
+WKST 4 Extra: allow user to keep trying to get ticket num
+WKST 5 Extra: prints the number of times that the number appeared in the array of randomly generated numbers
+*/
 
 #include "MyFunctions.h"
 #include "GetData.h"

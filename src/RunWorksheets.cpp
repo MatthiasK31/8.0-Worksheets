@@ -41,6 +41,18 @@
 // Added the data validation routines and the MyFuncion files and updated instructions accordingly
 */
 
+/*
+Matthias Kim
+Lab 8.0
+21 May 2021
+
+WKST 1 Extra: allow user to choose how many people ages should be entered for
+WKST 2 Extra: added some extra words to have the program check for palindromes
+WKST 3 Extra: allow user to see info for a certain person
+WKST 4 Extra: allow user to keep trying to get ticket num
+WKST 5 Extra: prints the number of times that the number appeared in the array of randomly generated numbers
+*/
+
 #include <iostream>
 #include "Worksheets.h"
 #include "GetData.h"
@@ -71,7 +83,7 @@ int main()
             runAgain = false;
         }
     } while (runAgain);
-
+    
     do {
         worksheet2(name2);
         cout << "Press y/Y to run again. Any other character to proceed: ";
@@ -95,6 +107,7 @@ int main()
             runAgain = false;
         }
     } while (runAgain);
+    
     
     do {
         worksheet4(name4);
