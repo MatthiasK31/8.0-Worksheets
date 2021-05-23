@@ -17,81 +17,51 @@ WKST 5 Extra: prints the number of times that the number appeared in the array o
 #include <iomanip>
 #include <vector>
 #include <string>
+#include <regex>
+
+using std::cin;
+using std::cout;
 
 using namespace std;
-//SAMPLE  - if you delete this also delete the code in MyFunctions.h
-void MySampleFunction(void) {
-	double testMe = 0;
-	float testMe2 = 0;
-	do {
-		cout << "enter a double between -1.2  and 25.5: ";
-	} while (!(getValidDouble(testMe)) || (testMe < -1.2) || (testMe > 25.5));
-
-	do {
-		cout << "enter a float between 5.2  and 6: ";
-	} while (!(getValidFloat(testMe2)) || (testMe2 < 5.2) || (testMe2 > 6));
-}
-
-bool checkValidNumInput(std::string tester)
+bool checkValidDistance(int& t_int)
 {
-	//try-catch to validate input
-	try {
-		double temp = std::stod(tester);
-		int num = std::stoi(tester); // error trap this with a try/catch block
+	std::string intScratch = "";
+	bool isValid = true;
 
-		if (temp != num) {
-			return true;
-		}
-		else if (num < 0) {
-			return true;
+
+	getline(cin, intScratch);
+	//remove all whitespace
+	std::regex r("\\s+");
+	intScratch = std::regex_replace(intScratch, r, "");
+	//rev 2 make sure only valid characters for an integer number are in the string
+	isValid = intScratch.find_first_not_of("-0123456789") == std::string::npos;
+	//Only 1 '-' allowed
+	if (std::count(intScratch.begin(), intScratch.end(), '-') > 1) {
+		isValid = false;
+	}
+	//make sure '-' is first char only
+	else if (std::count(intScratch.begin(), intScratch.end(), '-') > 0) {
+		if (intScratch.at(0) != '-') {
+			isValid = false;
 		}
 	}
-	catch (std::invalid_argument& e) {
-		//prompt user for valid input/continue loop
-		return true;
-	}
-	return false;
-}
-
-bool checkValidWeekInput(std::string tester)
-{
-	//try-catch to validate input
-	try {
-		int num = std::stoi(tester); // error trap this with a try/catch block
-
-		
-		if (num < 0 || num > 4) {
-			return true;
+	//convert ONLY if string is contains valid integer characters
+	//all errors caught 
+	if (isValid) {
+		try {
+			t_int = stoi(intScratch);
+		}
+		catch (...) { //<---catches ALL errors - may want to give the user a more specific message.  Shown in next function
+			//bad user entry - don't care what it is, return invalid
+			isValid = false;
 		}
 	}
-	catch (std::invalid_argument& e) {
-		//prompt user for valid input/continue loop
-		return true;
-	}
-	return false;
-}
+	if (t_int == 50 || t_int == 100 || t_int == 200 || t_int == 400 || t_int == 800 || t_int == 1000)
+		isValid = true;
+	else
+		isValid = false;
 
-bool checkValidDistance(std::string tester)
-{
-	//try-catch to validate input
-	try {
-		int num = std::stoi(tester); // error trap this with a try/catch block
-		double n = std::stod(tester);
-
-		if (num != n)
-			return true;
-		else if (num < 0)
-			return true;
-		else if (num == 50 || num == 100 || num == 200 || num == 400 || num == 800 || num == 1000)
-			return false;
-		else
-			return true;
-	}
-	catch (std::invalid_argument& e) {
-		//prompt user for valid input/continue loop
-		return true;
-	}
-	return false;
+	return isValid;
 }
 
 int favorite(std::vector<int> &numbers, int fav)
@@ -147,6 +117,83 @@ void printStudents(vector<string> names, vector<string> addresses, vector<string
 		}
 	}
 }
+
+void binarySearch(vector<int> &array, int lowerbound, int upperbound, int key)
+{
+	int position;
+	int comparisonCount = 1;  // counting number of comparisons (optional)
+	// To start, find the subscript of the middle position.
+	position = (lowerbound + upperbound) / 2;
+	while ((array[position] != key) && (lowerbound <= upperbound))
+	{
+		comparisonCount++;
+		if (array[position] > key)  // If thenumber is &gt; key,
+		{  // decrease position by one.
+			upperbound = position - 1;
+		}
+		else
+		{ // Else, increase position by one.
+			lowerbound = position + 1;
+		}
+		position = (lowerbound + upperbound) / 2;
+	}
+	if (lowerbound <= upperbound)
+	{
+		cout << "Number: " << key << endl;
+		cout << "The number was found in array subscript " << position << endl;
+		cout << "The binary search found the number after " << comparisonCount << " comparisons.\n";
+
+	}
+	else {
+		cout << "Number: " << key << endl;
+		cout << "Sorry, the number is not in this array.\nThe binary search made " << comparisonCount << " comparisons.\n";
+	}
+	return;
+}
+
+bool guesses(int& t_int) 
+{
+	std::string intScratch = "";
+	bool isValid = true;
+
+
+	getline(cin, intScratch);
+	//remove all whitespace
+	std::regex r("\\s+");
+	intScratch = std::regex_replace(intScratch, r, "");
+	//rev 2 make sure only valid characters for an integer number are in the string
+	isValid = intScratch.find_first_not_of("-0123456789") == std::string::npos;
+	//Only 1 '-' allowed
+	if (std::count(intScratch.begin(), intScratch.end(), '-') > 1) {
+		isValid = false;
+		return isValid;
+	}
+	//make sure '-' is first char only
+	else if (std::count(intScratch.begin(), intScratch.end(), '-') > 0) {
+		if (intScratch.at(0) != '-') {
+			isValid = false;
+			return isValid;
+		}
+	}
+	//convert ONLY if string is contains valid integer characters
+	//all errors caught 
+	if (isValid) {
+		try {
+			t_int = stoi(intScratch);
+		}
+		catch (...) { //<---catches ALL errors - may want to give the user a more specific message.  Shown in next function
+			//bad user entry - don't care what it is, return invalid
+			isValid = false;
+		}
+	}
+	if (t_int > 22)
+		isValid = false;
+	else
+		isValid = true;
+
+	return isValid;
+}
+
 
 void BubbleSortDescend(std::vector<int>& num)
 {

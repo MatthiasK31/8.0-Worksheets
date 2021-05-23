@@ -22,6 +22,7 @@ bool getValidInt(int& t_int) {
 	std::string intScratch = "";
 	bool isValid = true;
 
+
 	getline(cin, intScratch);
 	//remove all whitespace
 	std::regex r("\\s+");
@@ -31,11 +32,13 @@ bool getValidInt(int& t_int) {
 	//Only 1 '-' allowed
 	if (std::count(intScratch.begin(), intScratch.end(), '-') > 1) {
 		isValid = false;
+		return isValid;
 	}
 	//make sure '-' is first char only
 	else if (std::count(intScratch.begin(), intScratch.end(), '-') > 0) {
 		if (intScratch.at(0) != '-') {
 			isValid = false;
+			return isValid;
 		}
 	}
 	//convert ONLY if string is contains valid integer characters
@@ -49,6 +52,11 @@ bool getValidInt(int& t_int) {
 			isValid = false;
 		}
 	}
+	if (t_int < 0)
+		isValid = false;
+	else
+		isValid = true;
+
 	return isValid;
 }
 

@@ -2,11 +2,10 @@
 Matthias Kim
 Lab 8.0
 21 May 2021
-
 WKST 1 Extra: allow user to choose how many people ages should be entered for
 WKST 2 Extra: added some extra words to have the program check for palindromes
 WKST 3 Extra: allow user to see info for a certain person
-WKST 4 Extra: allow user to keep trying to get ticket num
+WKST 4 Extra: allow user to make 5 guesses for numbers in the array
 WKST 5 Extra: prints the number of times that the number appeared in the array of randomly generated numbers
 */
 
@@ -26,17 +25,17 @@ WKST 5 Extra: prints the number of times that the number appeared in the array o
 using namespace std;
 
 void worksheet1(string namedItem) {
-    std::cout << endl << "worksheet: " << namedItem << endl << endl;
-    
+    cout << endl << "worksheet 1: " << namedItem << endl << endl;
+
     //1
     //was a response to written code
 
     //2
     //create variables
-    vector<double> finalGrade;
     double total = 0, average = 0;
 
     //add values to the vector variable
+    vector<double> finalGrade;
     finalGrade.push_back(85.8);
     finalGrade.push_back(93.7);
     finalGrade.push_back(76);
@@ -97,7 +96,7 @@ void worksheet1(string namedItem) {
         do {
             cout << "Enter age #" << i + 1 << ":  ";
         } while (!(getValidInt(age)) || age < 0);
-        
+
         pAges.push_back(age);
 
         if (age > 15)
@@ -114,70 +113,82 @@ void worksheet1(string namedItem) {
 
 
     //5
-    string daysOfTheWeek[] = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+    string daysOfTheWeek[] = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
     vector<double> dailySales;
     double salesForDay = 0;
-    int response; string advance = ""; string temp = "";
+    int response; string answer = ""; string temp = "";
 
     for (int i = 0; i < size(daysOfTheWeek); i++) {
-        cout << "Enter the total sales for " << daysOfTheWeek[i] <<": ";
+        cout << "Enter the total sales for " << daysOfTheWeek[i] << ": ";
         cin >> salesForDay;
         dailySales.push_back(salesForDay);
         cout << "There was a total of $" << salesForDay << " on " << daysOfTheWeek[i] << "!" << endl;
     }
 
-    do {
+    while (true) {
         cin.ignore(INT_MAX, '\n');
         cout << "Choose a day of the week to view its total sales:  ";
         while (!getValidInt(response) || response < 0 || response > 5) {
             cout << "\tEnter a valid number:\t";
         }
 
-        cout << "There was a total of $" << dailySales.at(response - 1) << " on " << daysOfTheWeek[response - 1] << "!" << endl;
+        int temp = response - 1;
+        cout << "There was a total of $" << dailySales.at(temp) << " on " << daysOfTheWeek[temp] << "!" << endl;
 
 
         cout << "Would you like to continue? ";
-        cin >> advance;
-        for (int i = 0; i < advance.length(); i++) {
-            temp += tolower(advance.at(i));
-        }
-        advance = temp;
-
-    } while (advance.at(0) == 'y' || advance == "yes" || advance != "no");
+        cin >> answer;
+        transform(answer.begin(), answer.end(), answer.begin(), ::tolower);
+        if (answer == "no")
+            break;
+    }
 
 
 }
 
 void worksheet2(string namedItem) {
-    std::cout << endl << "worksheet: " << namedItem << endl << endl;
-    
+    std::cout << endl << "worksheet 2: " << namedItem << endl << endl;
+
+
     //1
-    vector<int> numbers;
-    int num, fav, timesFound; 
+    vector<int> num;
+    int number, fav, timesFound;
     bool yesOrNo;
 
     for (int i = 0; i < 10; i++) {
-        do {
-            cout << "Enter number #" << i+1 << ": ";
-        } while (!getValidInt(num));
-        
-        numbers.push_back(num);
+        cout << "Enter number #" << i + 1 << ": ";
+        while (!getValidInt(number)) {
+            cout << "\tEnter a valid number:  ";
+        }
+
+        num.push_back(number);
+
     }
 
     //ask user to enter his/her favorite number
     cout << "Additionally, please enter your favorite number: ";
-    while (!getValidInt(fav)) {
-        cout << "\tEnter a valid number:\t";
-    }
+    while (!getValidInt(fav))
+        cout << "\tEnter a valid number:  ";
 
     //call function, get the returned value, then print out a final message
-    timesFound = favorite(numbers, fav);
-    cout << "In your 10 numbers that you entered, your favorite number " << fav << " was found a total of " << timesFound << " times." << endl;
+    timesFound = favorite(num, fav);
+    cout << "Favorite Number: " << fav << endl;
+    cout << "# of times Favourite Number Occurred: " << timesFound << endl;
+    if (timesFound > 0)
+        cout << "Nice! your favorite number was found in this array of random numbers\n" << endl;
+    else
+        cout << "Darn, better luck next time." << endl;
 
 
     //2
-    //added a few extra words to the vector
-    vector<string> words = { "radar", "warts", "evil", "racecar", "toot", "cola", "civic" };
+    //extra: added a few extra words to the vector
+    vector<string> words = { "radar", 
+                             "warts", 
+                             "evil", 
+                             "racecar", 
+                             "toot", 
+                             "cola", 
+                             "civic" };
     string compare, isAPalindrome;
 
     printf("%-15s %-25s %-20s\n", "Word", "Reversed", "Palindrome?");
@@ -192,13 +203,13 @@ void worksheet2(string namedItem) {
             isAPalindrome = "No";
         }
         printf("%-15s %-15s %-15s\n", words.at(i).c_str(), compare.c_str(), isAPalindrome.c_str());
+
     }
-
 }
-
-void worksheet3(string namedItem) {
-    std::cout << endl << "worksheet: " << namedItem << endl << endl;
     
+void worksheet3(string namedItem) {
+    std::cout << endl << "worksheet 3: " << namedItem << endl << endl;
+
     //1
     //declare arrays
     vector<int> distanceMeters = { 50, 100, 200, 400, 800, 1000 };
@@ -208,29 +219,33 @@ void worksheet3(string namedItem) {
 
     //ask for distance
     cout << "Which distance would you like to check the time for? ";
-    while (!getValidInt(distance)) {
+   
+    while (!checkValidDistance(distance)) {
         cout << "\tEnter a valid number:\t";
     }
-    
+
     //go through the distance vector and once the value is found, print the distance and time, then break out of the loop
     for (int i = 0; i < distanceMeters.size(); i++) {
         if (distance == distanceMeters.at(i)) {
             printf("%-15s %-15s\n", "Distance(m)", "Time(sec)");
-            printf("%-15d %-15.2f\n\n", distance, timeSeconds.at(i));
+            printf("%-15i %-15.2f\n\n", distance, timeSeconds.at(i));
             break;
         }
     }
 
     //2
     string name, address, number;
-    vector<string> studentNames = { "Shaiiko Lebleu", "John Wick", "Tony Stark", "Steve Rogers", "Peter Parker" };
+    vector<string> studentNames = { "Shaiiko Lebleu", 
+                                    "John Wick", 
+                                    "Tony Stark", 
+                                    "Steve Rogers", 
+                                    "Peter Parker" };
     vector<string> studentAddys;
     vector<string> studentNumbers;
-    
+
     //ask 5 diff people their name/address/number
-    cin.ignore(INT_MAX, '\n');
     for (int i = 0; i < 5; i++) {
-        cout << "Student #" << i+1 << ":" << endl;
+        cout << "Student #" << i + 1 << ":" << endl;
 
         cout << "What is your address?  ";
         getline(cin, address);
@@ -243,56 +258,64 @@ void worksheet3(string namedItem) {
         cout << endl;
     }
     printStudents(studentNames, studentAddys, studentNumbers);
+    printStudents(studentNames, studentAddys, studentNumbers);
+    printStudents(studentNames, studentAddys, studentNumbers);
+
 
     cout << studentNames.at(2) << endl << studentAddys.at(2) << endl << studentNumbers.at(2) << endl;
 
     //extra: allow user to see info for a certain person
     bool exitOrNo = false;
-    int chosen;
+    int chosen, exit;
     while (exitOrNo == false) {
-        cout << "Would you like to see the information of a certain person? Select the corresponding number:\n1. Shaiiko Lebleu\n2. John Wick\n3.Tony Stark\n4.Steve Rogers\n5.Peter Parker\nEnter the number 42 to exit.\n";
-        while (!getValidInt(chosen) || chosen < 0) {
+        cout << "Would you like to see the information of a certain person? Select the corresponding number:\n1. Shaiiko Lebleu\n2. John Wick\n3.Tony Stark\n4.Steve Rogers\n5.Peter Parker.\n";
+        while (!getValidInt(chosen) || chosen < 0 || chosen > 5) {
+            cin.ignore(INT_MAX, '\n');
             cout << "\tEnter a valid number:\t";
         }
-        cout << studentNames.at(chosen) << endl << studentAddys.at(chosen) << endl << studentNumbers.at(chosen) << endl;
-        if (chosen == 42)
-            break;
+        
+
+        cout << studentNames.at(chosen-1) << endl << studentAddys.at(chosen-1) << endl << studentNumbers.at(chosen-1) << endl;
+        
+        cout << "Would you like to continue? Press 9 to exit or any other number to continue. ";
+        while (!getValidInt(exit)){
+            cin.ignore(INT_MAX, '\n');
+            cout << "\tEnter a valid number:\t";
+        }
+        if (exit == 9)
+            exitOrNo = true;
+        
     }
 
 }
 
 void worksheet4(string namedItem) {
-    std::cout << endl << "worksheet: " << namedItem << endl << endl;
+    std::cout << endl << "worksheet 4: " << namedItem << endl << endl;
     //1
 
     //variables
     int ticket;
-    string response;
-    bool yesOrNo, aMatch = false;
+    string response = "";
+    bool yesOrNo, yep = true, aMatch = false;
     vector<int> winningNumbers = { 307, 521, 416, 154, 243, 89 };
 
     //ask for a ticket value and error trap input
-    //extra: allow user to keep trying to get ticket num
-    while (response.at(0) == 'y') {
-        cout << "Enter your ticket number!!  ";
-        while (!getValidInt(ticket)) {
-            cout << "\tEnter a valid number:\t";
-        }
+    cout << "Enter your ticket number!!  ";
+    while (getValidInt(ticket) == false) {
+        cout << "\tEnter a valid number:\t";
+    }
 
-        //search through the array and if there is a match, print a corresponding statement
-        for (int i = 0; i < winningNumbers.size(); i++) {
-            if (ticket == winningNumbers.at(i)) {
-                aMatch = true;
-            }
+    //search through the array and if there is a match, print a corresponding statement
+    for (int i = 0; i < winningNumbers.size(); i++) {
+        if (ticket == winningNumbers.at(i)) {
+            aMatch = true;
         }
-        if (aMatch == true) {
-            cout << "Congrats! Your ticket #" << ticket << " is a winning number!" << endl;
-        }
-        else {
-            cout << "Sorry, your ticket is not a winning number.\n" << endl;
-        }
-        cout << "Would you like to try again? (y/n)";
-        cin >> response;
+    }
+    if (aMatch == true) {
+        cout << "Congrats! Your ticket #" << ticket << " is a winning number!" << endl;
+    }
+    else {
+        cout << "Sorry, your ticket is not a winning number.\n" << endl;
     }
 
 
@@ -300,23 +323,27 @@ void worksheet4(string namedItem) {
     int key = 0;
     aMatch = false;
     vector<int> numbers = { 5, 6, 10, 14, 15, 16, 18, 22 };
+    vector<int> guess;
 
-    cout << "Enter a number: ";
-    while (!getValidInt(key)) {
-        cout << "\tEnter a valid number:\t";
-    }
+    //extra: allow user to make 5 guesses for numbers in the array
+    for (int i = 0; i < 5; i++) {
+        cout << "Enter a number between 1 and 23: ";
+        while (!guesses(key)) {
+            cout << "\tEnter a valid number:\t";
+        }
 
-    //search through the array and if there is a match, print a corresponding statement
-    if (binary_search(numbers.begin(), numbers.end(), key)) {
-        cout << "The key value " << key << " was found in the array.\n" << endl;
+        guess.push_back(key);
     }
-    else {
-        cout << "The entered key value was not found in the array.\n" << endl;
+    cout << endl;
+    //print results
+    for (int i = 0; i < guess.size(); i++) {
+        binarySearch(numbers, 0, numbers.size(), guess.at(i));
+        cout << endl;
     }
 }
 
 void worksheet5(string namedItem) {
-    std::cout << endl << "worksheet: " << namedItem << endl << endl;
+    std::cout << endl << "worksheet 5: " << namedItem << endl << endl;
     //variables
     int generated, key, timesFound = 0, through = 0;
     bool yesOrNo;
@@ -331,7 +358,7 @@ void worksheet5(string namedItem) {
 
     //print 5 rows o
     //print 5 rows of 10 numbers each
-    for (int i = 0;  i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
         cout << rNumbers.at(i) << "\t";
     }
     cout << endl;
@@ -352,9 +379,7 @@ void worksheet5(string namedItem) {
     }
     cout << endl;
 
-
-
-
+    //ask for number
     cout << "Enter a number: ";
     cin.ignore(INT_MAX, '\n');
     while (!getValidInt(key)) {
@@ -415,8 +440,4 @@ void worksheet5(string namedItem) {
         cout << rNumbers.at(i) << "\t";
     }
     cout << endl;
-
-
-
-
 }
